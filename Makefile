@@ -16,16 +16,16 @@ swago: ## Запускаем swag (генерим сваггер)
 	swag init --parseDependency --parseInternal --propertyStrategy pascalcase --parseDepth 3 -g cmd/app/main.go
 
 migrup: ## Накатываем миграции
-	go run ./cmd/migration/migrator.go up
+	go run ./cmd/migrator/migrator.go up
 
 migrdown: ## Откатываем миграции
-	go run ./cmd/migration/migrator.go down
+	go run ./cmd/migrator/migrator.go down
 
 migrcreate: ## Создаёт новую миграцию (параметр ARG1 обязателен)
 	@if [ -z "$(ARG1)" ]; then \
 		echo "Ошибка: Не задан параметр ARG1! Пример: make migrcreate ARG1=my_migration"; \
 	else \
-		go run ./cmd/migration/migrator.go -dir migrations create $(ARG1) sql; \
+		go run ./cmd/migrator/migrator.go create $(ARG1) sql; \
 	fi
 help:  ## Показываем список команд
 	@echo "Доступные команды:"
