@@ -1,0 +1,14 @@
+db:
+  url: "localhost"
+  db_type: "postgres"
+  db_user: "postgres"
+  db_password: "postgres"
+  db_host: "localhost"
+  db_port: "5432"
+  db_db: "auth_service"
+  db_ssl_mode: "disable"
+  db_connection_timeout: 10s
+  db_max_connection_retries: 10
+  db_debug: true
+  db_max_idle: 10
+  db_max_open: 10
