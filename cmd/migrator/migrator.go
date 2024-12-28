@@ -21,7 +21,6 @@ func main() {
 			panic(err)
 		}
 	}()
-	log.Println(os.Args[1], os.Args[2:])
 	cfg, err := config.New()
 	if err != nil {
 		log.Fatalf("error parse config file: %v", err)
