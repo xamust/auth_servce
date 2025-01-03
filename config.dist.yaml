@@ -12,3 +12,10 @@ db:
   db_debug: true
   db_max_idle: 10
   db_max_open: 10
+http:
+  port: "8080"
+jwt:
+  access_secret: "mega_secret"
+  refresh_secret: "super_secret"
+  access_token_ttl: 10m
+  refresh_token_ttl: 2h
