@@ -13,7 +13,8 @@ run: ## Запускаем сервис (без билда)
 
 swago: ## Запускаем swag (генерим сваггер)
 	# https://github.com/swaggo/swag
-	swag init --parseDependency --parseInternal --propertyStrategy pascalcase --parseDepth 3 -g cmd/app/main.go
+	# go install github.com/swaggo/swag/cmd/swag@latest
+	swag init --parseDependency --parseInternal --propertyStrategy pascalcase --parseDepth 3 -g cmd/app/app.go
 
 migrup: ## Накатываем миграции
 	go run ./cmd/migrator/migrator.go up
