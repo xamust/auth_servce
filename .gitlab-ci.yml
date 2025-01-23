@@ -8,7 +8,6 @@ build:
     name: gcr.io/kaniko-project/executor:v1.14.0-debug
     entrypoint: [ "" ]
   script:
-    - env
     - /kaniko/executor
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
