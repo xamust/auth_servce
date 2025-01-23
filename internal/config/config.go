@@ -24,7 +24,7 @@ func New() (*Config, error) {
 	var cfg Config
 
 	if err = yaml.Unmarshal(data, &cfg); err != nil {
-		return &Config{}, fmt.Errorf("couldn't parse config file: %s", err.Error())
+		return &Config{}, fmt.Errorf("couldn't unmarshall config file: %s", err.Error())
 	}
 	cfg.DB.ParseURL()
 	return &cfg, nil
