@@ -1,0 +1,21 @@
+db:
+  url: ${DB_URL}
+  db_type: ${DB_TYPE}
+  db_user: ${DB_USER}
+  db_password: ${DB_PASSWORD}
+  db_host: ${DB_HOST}
+  db_port: ${DB_PORT}
+  db_db: ${DB_DB}
+  db_ssl_mode: ${DB_SSL_MODE}
+  db_connection_timeout: ${DB_CONNECTION_TIMEOUT}
+  db_max_connection_retries: ${DB_MAX_CONNECTION_RETRIES}
+  db_debug: ${DB_DEBUG}
+  db_max_idle: ${DB_MAX_IDLE}
+  db_max_open: ${DB_MAX_OPEN}
+http:
+  port: ${HTTP_SERVER_PORT}
+jwt:
+  access_secret: ${JWT_ACCESS_SECRET}
+  refresh_secret: ${JWT_REFRESH_SECRET}
+  access_token_ttl: ${JWT_ACCESS_TOKEN_TTL}
+  refresh_token_ttl: ${JWT_REFRESH_TOKEN_TTL}
