@@ -29,6 +29,7 @@ func preprocess() ([]byte, error) {
 	re := regexp.MustCompile(`\$\{(.+?)\}`)
 	replacedContent := re.ReplaceAllStringFunc(content, func(s string) string {
 		envVarName := strings.TrimSuffix(strings.TrimPrefix(s, `${`), `}`)
+		log.Print("try to get :", envVarName)
 		envVarValue := os.Getenv(envVarName)
 		return envVarValue
 	})
