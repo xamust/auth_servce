@@ -3,8 +3,7 @@ PROTO_FILES := $(shell find $(PROTO_DIRS) -type f -name '*.proto')
 
 .PHONY: build test lint run migrup migrdown migrcreate swago
 build: ## Собираем бинарник
-	CGO_ENABLED=0 go build -o bin/app -mod=readonly
-
+	CGO_ENABLED=0 go build -o bin/app -mod=readonly ./cmd/app
 test: ## Запускаем тесты
 	go test -v ./... -race -cover
 
@@ -27,10 +26,15 @@ generate: ## Запускаем весь автоген проекта
 	@make protogen
 
 migrup: ## Накатываем миграции
+	@make gooseinstall
 	go run ./cmd/migrator/migrator.go up
 
 migrdown: ## Откатываем миграции
+	@make gooseinstall
 	go run ./cmd/migrator/migrator.go down
+
+gooseinstall:
+	go install github.com/pressly/goose/v3/cmd/goose@latest
 
 migrcreate: ## Создаёт новую миграцию (параметр ARG1 обязателен)
 	@if [ -z "$(ARG1)" ]; then \
