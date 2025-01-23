@@ -3,6 +3,7 @@ package config
 import (
 	"flag"
 	"github.com/joho/godotenv"
+	"log"
 	"os"
 	"regexp"
 	"strings"
@@ -13,7 +14,8 @@ func preprocess() ([]byte, error) {
 	flag.Parse()
 	data, err := os.ReadFile(*configFile)
 	if err != nil {
-		return nil, err
+		log.Print(err.Error())
+		//return nil, err
 	}
 
 	content := string(data)
