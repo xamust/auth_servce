@@ -26,11 +26,17 @@ func main() {
 		log.Fatalf("error parse config file: %v", err)
 		return
 	}
-	db, err := postgres.Database(cfg).DB()
+	db, err := postgres.NewDatabase(cfg)
 	if err != nil {
 		panic(err)
 	}
-	migr := migrator.NewGooseMigrator(db)
+
+	sqlDB, err := db.DB()
+	if err != nil {
+		panic(err)
+	}
+
+	migr := migrator.NewGooseMigrator(sqlDB)
 	if err := migr.Commands(os.Args[1], os.Args[2:]...); err != nil {
 		panic(err)
 	}

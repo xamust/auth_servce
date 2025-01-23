@@ -14,9 +14,9 @@ import (
 
 var db *gorm.DB
 
-func Database(cfg *config.Config) *gorm.DB {
+func NewDatabase(cfg *config.Config) (*gorm.DB, error) {
 	if db != nil {
-		return db
+		return db, nil
 	}
 
 	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
@@ -40,14 +40,12 @@ func Database(cfg *config.Config) *gorm.DB {
 		Logger: newLogger,
 	})
 	if err != nil {
-		log.Fatalf("failed to create a new postgres (v2) connection: %s", err.Error())
-		return nil
+		return nil, fmt.Errorf("failed to create a new postgres (v2) connection: %s", err.Error())
 	}
 
 	sqlDB, err := conn.DB()
 	if err != nil {
-		log.Fatalf("failed to get sql db: %s", err.Error())
-		return nil
+		return nil, fmt.Errorf("failed to get sql db: %s", err.Error())
 	}
 
 	maxIdleConn := 1
@@ -63,11 +61,10 @@ func Database(cfg *config.Config) *gorm.DB {
 	sqlDB.SetMaxOpenConns(maxOpenConn)
 
 	if err = sqlDB.Ping(); err != nil {
-		log.Fatalf("failed to ping to database: %s", err.Error())
-		return nil
+		return nil, fmt.Errorf("failed to ping to database: %s", err.Error())
 	}
 
 	db = conn
 
-	return db
+	return db, nil
 }

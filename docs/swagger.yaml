@@ -1,4 +1,48 @@
 basePath: /api/v1
+definitions:
+  gitlab_com_xamops_auth_internal_dto.AuthResponse:
+    properties:
+      id:
+        type: string
+      ttl:
+        type: integer
+    type: object
+  gitlab_com_xamops_auth_internal_dto.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  gitlab_com_xamops_auth_internal_dto.Permission:
+    properties:
+      description:
+        type: string
+      title:
+        type: string
+    type: object
+  gitlab_com_xamops_auth_internal_dto.Role:
+    properties:
+      description:
+        type: string
+      permissions:
+        items:
+          $ref: '#/definitions/gitlab_com_xamops_auth_internal_dto.Permission'
+        type: array
+      title:
+        type: string
+    type: object
+  gitlab_com_xamops_auth_internal_dto.User:
+    properties:
+      email:
+        type: string
+      is_active:
+        type: boolean
+      organization_id:
+        type: string
+      role:
+        $ref: '#/definitions/gitlab_com_xamops_auth_internal_dto.Role'
+    type: object
 externalDocs:
   description: OpenAPI
   url: https://swagger.io/resources/open-api/
@@ -15,21 +59,73 @@ info:
   title: Swagger xamops auth API
   version: 1.0.0
 paths:
-  /user/current:
-    get:
+  /login:
+    post:
       consumes:
       - application/json
-      description: do ping
+      description: Login
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/gitlab_com_xamops_auth_internal_dto.LoginRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            type: string
-      summary: ping example
+            $ref: '#/definitions/gitlab_com_xamops_auth_internal_dto.AuthResponse'
+      summary: Login
       tags:
-      - example
+      - Auth
+  /logout:
+    post:
+      consumes:
+      - application/json
+      description: Logout
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      summary: Logout
+      tags:
+      - Auth
+  /refresh:
+    post:
+      consumes:
+      - application/json
+      description: Refresh
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gitlab_com_xamops_auth_internal_dto.AuthResponse'
+      summary: Refresh
+      tags:
+      - Auth
+  /user/current:
+    get:
+      consumes:
+      - application/json
+      description: Get Current User
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gitlab_com_xamops_auth_internal_dto.User'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Current User
+      tags:
+      - User
 securityDefinitions:
   BasicAuth:
     type: basic

@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+//protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative proto/auth/*.proto
+
+package auth;
+
+option go_package = "auth.v1";
+
+service AuthService {
+  rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
+  rpc ListUsers(ListUserRequest) returns (ListUserResponse) {}
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {}
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {}
+//  todo @ управление ролями и пермишеннами пока минус :(
+  rpc GetRole(GetRoleRequest) returns (GetRoleResponse) {}
+  rpc ListRoles(ListRolesRequest) returns (ListRolesResponse) {}
+}
+
+message User {
+  string UUID = 1;
+  string OrganizationUUID = 2;
+  bool IsActive = 3;
+  string SystemRoleUUID = 4;
+  SystemRole SystemRole = 5;
+  map<string,string> Metadata = 6;
+}
+
+message SystemRole {
+  string RoleUUID = 1;
+  string Description = 2;
+  map<string,string> Metadata = 3;
+  repeated Permission Permission = 4;
+}
+
+message Permission {
+  string Description = 1;
+  map<string,string> Metadata = 2;
+}
+
+message GetUserRequest {
+  string UserUUID = 1;
+  string OrganizationUUID = 2;
+  string CallUserUUID = 3;
+}
+
+message GetUserResponse {
+  User User = 1;
+}
+
+message ListUserRequest {
+  string OrganizationUUID = 1;
+  optional int64 Limit = 2;
+  optional int64 Offset = 3;
+  string CallUserUUID = 4;
+}
+
+message ListUserResponse {
+  repeated User Users = 1;
+  int64 Count = 2;
+}
+
+message CreateUserRequest {
+  string OrganizationUUID = 1;
+  string Email = 2;
+  string Password = 3;
+  map<string,string> Metadata = 4;
+  string CallUserUUID = 5;
+}
+
+message CreateUserResponse {
+  User User = 1;
+}
+
+message UpdateUserRequest {
+  string Email = 1;
+  string Password = 2;
+  bool IsActive = 3;
+  string SystemRoleUUID = 4;
+  map<string,string> Metadata = 5;
+  string OrganizationUUID = 6;
+  string CallUserUUID = 7;
+}
+
+message UpdateUserResponse {
+  User User = 1;
+}
+
+message DeleteUserRequest {
+  string UserUUID = 1;
+  string OrganizationUUID = 2;
+  string CallUserUUID = 3;
+}
+
+message DeleteUserResponse {
+  bool Status = 1;
+}
+
+message GetRoleRequest {
+  string RoleUUID = 1;
+  string OrganizationUUID = 2;
+  string CallUserUUID = 3;
+}
+
+message GetRoleResponse {
+  SystemRole SystemRole = 1;
+}
+
+message ListRolesRequest {
+  string OrganizationUUID = 1;
+  optional int64 Limit = 2;
+  optional int64 Offset = 3;
+  string CallUserUUID = 4;
+}
+
+message ListRolesResponse {
+  repeated SystemRole SystemRoles = 1;
+  int64 Count = 2;
+}

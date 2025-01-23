@@ -1,7 +1,6 @@
 package repositories
 
 import (
-	"dbfhub.gitlab.yandexcloud.net/plano-dev/backend/plano-auth.git/pkg/gorm/postgres"
 	"github.com/google/uuid"
 	"gitlab.com/xamops/auth/internal/entity"
 	"gitlab.com/xamops/auth/internal/interfaces"
@@ -9,9 +8,7 @@ import (
 	"log/slog"
 )
 
-var (
-	_ interfaces.UsersRepository = (*UsersRepository)(nil)
-)
+var _ interfaces.UsersRepository = (*UsersRepository)(nil)
 
 func newUsersRepository(log *slog.Logger) *UsersRepository {
 	return &UsersRepository{
@@ -23,11 +20,10 @@ type UsersRepository struct {
 	log *slog.Logger
 }
 
-func (u *UsersRepository) GetByID(db *gorm.DB, uid uuid.UUID) (*entity.User, error) {
+func (u *UsersRepository) ByID(db *gorm.DB, uid uuid.UUID) (*entity.User, error) {
 	var user entity.User
 	err := db.
-		Preload("Role").
-		Preload("Role.Permissions").
+		Preload("SystemRole.Permissions.SystemRolesPermissions").
 		Where("uuid = ?", uid.String()).
 		First(&user).
 		Error
@@ -37,7 +33,20 @@ func (u *UsersRepository) GetByID(db *gorm.DB, uid uuid.UUID) (*entity.User, err
 	return &user, nil
 }
 
-func (u *UsersRepository) ListByOrganizationID(db *gorm.DB, orgID uuid.UUID) ([]entity.User, error) {
+func (u *UsersRepository) ByEmail(db *gorm.DB, email string) (*entity.User, error) {
+	var user entity.User
+	err := db.
+		Preload("SystemRole.Permissions.SystemRolesPermissions").
+		Where("email = ?", email).
+		First(&user).
+		Error
+	if err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
+func (u *UsersRepository) ListByOrganizationID(db *gorm.DB, orgID uuid.UUID, limit, offset int) ([]entity.User, error) {
 	panic("implement me")
 }
 

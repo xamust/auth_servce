@@ -1,6 +1,6 @@
 package application
 
-import "dbfhub.gitlab.yandexcloud.net/plano-dev/backend/plano-auth.git/internal/interfaces"
+import "gitlab.com/xamops/auth/internal/interfaces"
 
 type defaultHTTPServer struct{}
 

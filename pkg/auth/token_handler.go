@@ -3,7 +3,7 @@ package auth
 import (
 	"time"
 
-	"dbfhub.gitlab.yandexcloud.net/plano-dev/backend/libs/errors.git"
+	"errors"
 	"github.com/golang-jwt/jwt"
 )
 

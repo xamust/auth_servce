@@ -1,0 +1,39 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:v1.14.0-debug
+    entrypoint: [ "" ]
+  script:
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "${CI_REGISTRY_IMAGE}:latest"
+      --verbosity=debug
+  only:
+    - master
+
+deploy:
+  stage: deploy
+  image: docker:24.0.7-git
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_DRIVER: overlay2
+  services:
+    - docker:24.0.7-dind
+  script:
+    - docker network create nginx_proxy || true
+    - unset DOCKER_HOST
+    - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+    - if [ "$(docker ps -aq -f name=auth)" ]; then docker rm -f auth; fi
+    - docker container prune -f
+    - docker pull $CI_REGISTRY_IMAGE:latest
+    - docker create --name auth --network nginx_proxy -p 127.0.0.1:8080:8080 --restart=always -i $CI_REGISTRY_IMAGE:latest
+    - docker start auth
+  only:
+    - master
+

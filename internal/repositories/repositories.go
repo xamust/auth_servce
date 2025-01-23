@@ -12,6 +12,7 @@ func New(db *gorm.DB, log *slog.Logger) *Repository {
 		db:   db,
 		auth: newAuthRepository(log),
 		user: newUsersRepository(log),
+		role: newSystemRolesRepository(log),
 	}
 }
 
@@ -19,6 +20,7 @@ type Repository struct {
 	db   *gorm.DB
 	auth interfaces.AuthRepository
 	user interfaces.UsersRepository
+	role interfaces.SystemRolesRepository
 }
 
 func (r *Repository) ConnWithContext(ctx context.Context) *gorm.DB {
@@ -29,10 +31,14 @@ func (r *Repository) Conn() *gorm.DB {
 	return r.db
 }
 
-func (r *Repository) AuthRepository() interfaces.AuthRepository {
+func (r *Repository) Auth() interfaces.AuthRepository {
 	return r.auth
 }
 
 func (r *Repository) Users() interfaces.UsersRepository {
 	return r.user
+}
+
+func (r *Repository) Roles() interfaces.SystemRolesRepository {
+	return r.role
 }

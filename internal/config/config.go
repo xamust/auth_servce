@@ -10,9 +10,9 @@ type Config struct {
 	//Env     string `yaml:"env"`
 	//Debug   bool   `yaml:"debug"`
 	//Logger  Logger `yaml:"logger"`
-	//JWT     JWT    `yaml:"jwt"`
-	DB DB `yaml:"db"`
-	//HTTP    HTTP   `yaml:"http"`
+	JWT  JWT  `yaml:"jwt"`
+	DB   DB   `yaml:"db"`
+	HTTP HTTP `yaml:"http"`
 	//GRPC    GRPC   `yaml:"grpc"`
 }
 

@@ -7,10 +7,11 @@ import (
 
 type User struct {
 	Common
-	Email          string
-	PasswordHash   string
-	OrganizationID uuid.UUID
-	IsActive       bool
-	Metadata       metadata.Metadata
-	Role           *Role
+	Email            string
+	PasswordHash     string
+	OrganizationUUID uuid.UUID
+	IsActive         bool
+	Metadata         metadata.Metadata
+	SystemRoleUUID   uuid.UUID
+	SystemRole       *SystemRole `gorm:"foreignKey:SystemRoleUUID;references:UUID"`
 }

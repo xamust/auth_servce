@@ -8,7 +8,6 @@ import (
 type UserClaims struct {
 	UUID             uuid.UUID   `json:"uuid"`
 	OrganizationUUID uuid.UUID   `json:"organization_uuid"`
-	EmployeeUUID     uuid.UUID   `json:"employee_uuid"`
 	Permissions      Permissions `json:"permissions"`
 	jwt.StandardClaims
 }

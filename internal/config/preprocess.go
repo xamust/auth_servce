@@ -2,6 +2,7 @@ package config
 
 import (
 	"flag"
+	"github.com/joho/godotenv"
 	"os"
 	"regexp"
 	"strings"
@@ -16,7 +17,7 @@ func preprocess() ([]byte, error) {
 	}
 
 	content := string(data)
-
+	godotenv.Load()
 	re := regexp.MustCompile(`\$\{(.+?)\}`)
 	replacedContent := re.ReplaceAllStringFunc(content, func(s string) string {
 		envVarName := strings.TrimSuffix(strings.TrimPrefix(s, `${`), `}`)
