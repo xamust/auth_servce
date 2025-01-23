@@ -1,9 +1,7 @@
 package config
 
 import (
-	"flag"
 	"github.com/joho/godotenv"
-	"log"
 	"os"
 	"regexp"
 	"strings"
@@ -15,14 +13,14 @@ func preprocess() ([]byte, error) {
 		err  error
 	)
 
-	configFile := flag.String("config", "./config.yaml", "Path to config file")
-	flag.Parse()
-
-	data, err = os.ReadFile(*configFile)
-	if err != nil {
-		log.Print(err.Error())
-		//return nil, err
-	}
+	//configFile := flag.String("config", "./config.yaml", "Path to config file")
+	//flag.Parse()
+	//
+	//data, err = os.ReadFile(*configFile)
+	//if err != nil {
+	//	log.Print(err.Error())
+	//	return nil, err
+	//}
 
 	content := string(data)
 	godotenv.Load()
