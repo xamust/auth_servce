@@ -2,7 +2,6 @@ FROM golang:1.23.4 AS builder
 LABEL maintainer="Stepan K. <xamust@gmail.com>"
 WORKDIR /app
 COPY . .
-RUN env
 RUN make migrup
 RUN make build
 
