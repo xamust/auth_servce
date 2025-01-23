@@ -14,8 +14,8 @@ build:
       --destination "${CI_REGISTRY_IMAGE}:latest"
       --verbosity=debug
   only:
-    - master
-
+    - main
+    
 deploy:
   stage: deploy
   image: docker:24.0.7-git
@@ -35,5 +35,5 @@ deploy:
     - docker create --name auth --network nginx_proxy -p 127.0.0.1:8080:8080 --restart=always -i $CI_REGISTRY_IMAGE:latest
     - docker start auth
   only:
-    - master
+    - main
 
