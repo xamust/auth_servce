@@ -14,6 +14,24 @@ build:
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}:latest"
       --verbosity=debug
+      --build-arg DB_URL=${DB_URL}
+      --build-arg DB_TYPE=${DB_TYPE}
+      --build-arg DB_USER=${DB_USER}
+      --build-arg DB_PASSWORD=${DB_PASSWORD}
+      --build-arg DB_HOST=${DB_HOST}
+      --build-arg DB_PORT=${DB_PORT}
+      --build-arg DB_DB=${DB_DB}
+      --build-arg DB_SSL_MODE=${DB_SSL_MODE}
+      --build-arg DB_CONNECTION_TIMEOUT=${DB_CONNECTION_TIMEOUT}
+      --build-arg DB_MAX_CONNECTION_RETRIES=${DB_MAX_CONNECTION_RETRIES}
+      --build-arg DB_DEBUG=${DB_DEBUG}
+      --build-arg DB_MAX_IDLE=${DB_MAX_IDLE}
+      --build-arg DB_MAX_OPEN=${DB_MAX_OPEN}
+      --build-arg HTTP_SERVER_PORT=${HTTP_SERVER_PORT}
+      --build-arg JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}
+      --build-arg JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
+      --build-arg JWT_ACCESS_TOKEN_TTL=${JWT_ACCESS_TOKEN_TTL}
+      --build-arg JWT_REFRESH_TOKEN_TTL=${JWT_REFRESH_TOKEN_TTL}
   only:
     - main
     
