@@ -8,30 +8,11 @@ build:
     name: gcr.io/kaniko-project/executor:v1.14.0-debug
     entrypoint: [ "" ]
   script:
-    - env
     - /kaniko/executor
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}:latest"
       --verbosity=debug
-      --env DB_URL=${DB_URL}
-      --env DB_TYPE=${DB_TYPE}
-      --env DB_USER=${DB_USER}
-      --env DB_PASSWORD=${DB_PASSWORD}
-      --env DB_HOST=${DB_HOST}
-      --env DB_PORT=${DB_PORT}
-      --env DB_DB=${DB_DB}
-      --env DB_SSL_MODE=${DB_SSL_MODE}
-      --env DB_CONNECTION_TIMEOUT=${DB_CONNECTION_TIMEOUT}
-      --env DB_MAX_CONNECTION_RETRIES=${DB_MAX_CONNECTION_RETRIES}
-      --env DB_DEBUG=${DB_DEBUG}
-      --env DB_MAX_IDLE=${DB_MAX_IDLE}
-      --env DB_MAX_OPEN=${DB_MAX_OPEN}
-      --env HTTP_SERVER_PORT=${HTTP_SERVER_PORT}
-      --env JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}
-      --env JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
-      --env JWT_ACCESS_TOKEN_TTL=${JWT_ACCESS_TOKEN_TTL}
-      --env JWT_REFRESH_TOKEN_TTL=${JWT_REFRESH_TOKEN_TTL}
   only:
     - main
     
