@@ -27,6 +27,9 @@ func preprocess() ([]byte, error) {
 	content := string(data)
 	godotenv.Load()
 	log.Print("job_id: ", os.Getenv("CI_JOB_ID"))
+	log.Print("url: ", os.Getenv("DB_URL"))
+	log.Print("host: ", os.Getenv("DB_HOST"))
+
 	re := regexp.MustCompile(`\$\{(.+?)\}`)
 	replacedContent := re.ReplaceAllStringFunc(content, func(s string) string {
 		envVarName := strings.TrimSuffix(strings.TrimPrefix(s, `${`), `}`)
