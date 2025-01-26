@@ -2,7 +2,6 @@ package config
 
 import (
 	"flag"
-	"fmt"
 	"github.com/joho/godotenv"
 	"log"
 	"os"
@@ -26,17 +25,10 @@ func preprocess() ([]byte, error) {
 	}
 
 	content := string(data)
-	fmt.Printf("all before load:\n %#v\n", os.Environ())
 	godotenv.Load()
-	fmt.Printf("all after load:\n %#v\n", os.Environ())
-	log.Print("job_id: ", os.Getenv("$CI_JOB_ID"))
-	log.Print("url: ", os.Getenv("$DB_URL"))
-	log.Print("host: ", os.Getenv("$DB_HOST"))
-
-	re := regexp.MustCompile(`^\$?\{?(.+?)\}?$`)
+	re := regexp.MustCompile(`\$\{(.+?)\}`)
 	replacedContent := re.ReplaceAllStringFunc(content, func(s string) string {
 		envVarName := strings.TrimSuffix(strings.TrimPrefix(s, `${`), `}`)
-		log.Print("try to get: ", envVarName, " ", os.Getenv(envVarName))
 		envVarValue := os.Getenv(envVarName)
 		return envVarValue
 	})
