@@ -8,13 +8,13 @@ build:
     name: gcr.io/kaniko-project/executor:v1.14.0-debug
     entrypoint: [ "" ]
   variables:
-    DB_URL: ${DB_URL}
-    DB_TYPE: ${DB_TYPE}
-    DB_USER: ${DB_USER}
-    DB_PASSWORD: ${DB_PASSWORD}
-    DB_HOST: ${DB_HOST}
-    DB_PORT: ${DB_PORT}
-    DB_DB: ${DB_DB}
+    DB_URL: $DB_URL
+    DB_TYPE: $DB_TYPE
+    DB_USER: $DB_USER
+    DB_PASSWORD: $DB_PASSWORD
+    DB_HOST: $DB_HOST
+    DB_PORT: $DB_PORT
+    DB_DB: $DB_DB
     DB_SSL_MODE: ${DB_SSL_MODE}
     DB_CONNECTION_TIMEOUT: ${DB_CONNECTION_TIMEOUT}
     DB_MAX_CONNECTION_RETRIES: ${DB_MAX_CONNECTION_RETRIES}
