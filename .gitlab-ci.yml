@@ -14,7 +14,7 @@ build:
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}:latest"
-      --verbosity=debug
+#      --verbosity=debug
   only:
     - main
     
