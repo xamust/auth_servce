@@ -15,6 +15,7 @@ build:
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}:latest"
 #      --verbosity=debug
+  timeout: 20m
   only:
     - main
     
