@@ -33,7 +33,7 @@ func preprocess() ([]byte, error) {
 	log.Print("url: ", os.Getenv("$DB_URL"))
 	log.Print("host: ", os.Getenv("$DB_HOST"))
 
-	re := regexp.MustCompile(`\$\{(.+?)\}`)
+	re := regexp.MustCompile(`^\$?\{?(.+?)\}?$`)
 	replacedContent := re.ReplaceAllStringFunc(content, func(s string) string {
 		envVarName := strings.TrimSuffix(strings.TrimPrefix(s, `${`), `}`)
 		log.Print("try to get: ", envVarName, " ", os.Getenv(envVarName))
