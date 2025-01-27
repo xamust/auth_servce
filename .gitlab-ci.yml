@@ -14,10 +14,6 @@ build:
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}:latest"
-      --context=/workspace
-      --no-push
-      --cache=false
-      --snapshotMode=redo
 #      --verbosity=debug
   timeout: 20m
   only:
