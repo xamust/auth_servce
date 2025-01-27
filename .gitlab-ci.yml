@@ -35,7 +35,7 @@ deploy:
     - if [ "$(docker ps -aq -f name=auth)" ]; then docker rm -f auth; fi
     - docker container prune -f
     - docker pull $CI_REGISTRY_IMAGE:latest
-    - docker create --name auth --network nginx_proxy -p 127.0.0.1:8082:8080 --restart=always -i $CI_REGISTRY_IMAGE:latest
+    - docker create --name auth --network nginx_proxy -p 127.0.0.1:8082:8082 --restart=always -i $CI_REGISTRY_IMAGE:latest
     - docker start auth
   only:
     - main
