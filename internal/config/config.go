@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"gopkg.in/yaml.v3"
+	"log"
 )
 
 type Config struct {
@@ -27,5 +28,7 @@ func New() (*Config, error) {
 		return &Config{}, fmt.Errorf("couldn't unmarshall config file: %s", err.Error())
 	}
 	cfg.DB.ParseURL()
+
+	log.Printf("%#v", cfg)
 	return &cfg, nil
 }

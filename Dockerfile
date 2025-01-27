@@ -9,4 +9,4 @@ FROM golang:1.23.4
 WORKDIR /app
 COPY --from=builder /app .
 ENTRYPOINT ["./bin/app"]
-EXPOSE 8080
+EXPOSE 8082
