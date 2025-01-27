@@ -26,7 +26,7 @@ generate: ## Запускаем весь автоген проекта
 	@make protogen
 
 migrup: ## Накатываем миграции
-	@make gooseinstall
+#	@make gooseinstall
 	go run ./cmd/migrator/migrator.go up
 
 migrdown: ## Откатываем миграции
