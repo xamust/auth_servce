@@ -8,5 +8,5 @@ RUN make build
 FROM golang:1.23.4
 WORKDIR /app
 COPY --from=builder /app .
-ENTRYPOINT ["./app"]
+ENTRYPOINT ["./bin/app"]
 EXPOSE 8080
