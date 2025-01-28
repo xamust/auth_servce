@@ -65,5 +65,6 @@ func main() {
 	)
 
 	app.RegisterHTTPServer(httpServer)
+
 	app.Run()
 }
