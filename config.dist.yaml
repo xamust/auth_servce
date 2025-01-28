@@ -1,21 +1,21 @@
 db:
-  url: "localhost"
-  db_type: "postgres"
-  db_user: "postgres"
-  db_password: "postgres"
-  db_host: "localhost"
-  db_port: "5432"
-  db_db: "auth_service"
-  db_ssl_mode: "disable"
-  db_connection_timeout: 10s
-  db_max_connection_retries: 10
-  db_debug: true
-  db_max_idle: 10
-  db_max_open: 10
+  url: ${DB_URL}
+  db_type: ${DB_TYPE}
+  db_user: ${DB_USER}
+  db_password: ${DB_PASSWORD}
+  db_host: ${DB_HOST}
+  db_port: ${DB_PORT}
+  db_db: ${DB_DB}
+  db_ssl_mode: ${DB_SSL_MODE}
+  db_connection_timeout: ${DB_CONNECTION_TIMEOUT}
+  db_max_connection_retries: ${DB_MAX_CONNECTION_RETRIES}
+  db_debug: ${DB_DEBUG}
+  db_max_idle: ${DB_MAX_IDLE}
+  db_max_open: ${DB_MAX_OPEN}
 http:
-  port: "8080"
+  port: ${HTTP_SERVER_PORT}
 jwt:
-  access_secret: "mega_secret"
-  refresh_secret: "super_secret"
-  access_token_ttl: 10m
-  refresh_token_ttl: 2h
+  access_secret: ${JWT_ACCESS_SECRET}
+  refresh_secret: ${JWT_REFRESH_SECRET}
+  access_token_ttl: ${JWT_ACCESS_TOKEN_TTL}
+  refresh_token_ttl: ${JWT_REFRESH_TOKEN_TTL}
