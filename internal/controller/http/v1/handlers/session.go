@@ -64,8 +64,8 @@ func (a *apiHandlersV1) Login(c *gin.Context) {
 // @Success 204
 // @Router /logout [post]
 func (a *apiHandlersV1) Logout(c *gin.Context) {
-	c.SetCookie(accessToken, "", 0, "", "", true, true)
-	c.SetCookie(refreshToken, "", 0, "", "", true, true)
+	c.SetCookie(accessToken, "", 0, "", "", false, false)
+	c.SetCookie(refreshToken, "", 0, "", "", false, false)
 	c.JSON(http.StatusNoContent, nil)
 }
 
@@ -86,7 +86,7 @@ func (a *apiHandlersV1) Refresh(c *gin.Context) {
 		a.logger.Error("failed generate refresh token", slog.String("error", err.Error()))
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": err})
 	}
-	c.SetCookie(accessToken, access, int(claims.ExpiresAt), "", "", true, true)
+	c.SetCookie(accessToken, access, int(claims.ExpiresAt), "", "", false, false)
 	c.SecureJSON(http.StatusOK, dto.AuthResponse{
 		ID:  a.mappers.UUID().ToString(claims.UUID),
 		TTL: claims.ExpiresAt,
