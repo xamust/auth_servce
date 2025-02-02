@@ -45,8 +45,8 @@ func (a *apiHandlersV1) Login(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": err})
 	}
 
-	c.SetCookie(accessToken, access, int(claims.ExpiresAt), "", "", true, false)
-	c.SetCookie(refreshToken, refresh, int(claims.ExpiresAt), "", "", true, false)
+	c.SetCookie(accessToken, access, int(claims.ExpiresAt), "", "", false, false)
+	c.SetCookie(refreshToken, refresh, int(claims.ExpiresAt), "", "", false, false)
 
 	c.SecureJSON(http.StatusOK, dto.AuthResponse{
 		ID:  a.mappers.UUID().ToString(claims.UUID),
