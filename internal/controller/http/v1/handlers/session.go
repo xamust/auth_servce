@@ -24,8 +24,10 @@ func (a *apiHandlersV1) Login(c *gin.Context) {
 	ctx := c.Request.Context()
 	req := dto.LoginRequest{}
 	if err := c.BindJSON(&req); err != nil {
+		a.logger.Error(err.Error())
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
+	a.logger.Debug("Login", req)
 	user, err := a.usecases.Auth().Login(ctx, req.Email, req.Password)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
