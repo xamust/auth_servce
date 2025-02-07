@@ -27,6 +27,11 @@ func NewRouter(deps handlers.Dependencies) *gin.Engine {
 	v1.POST("/refresh", auth.Refresh(deps.RefreshHandler), h.Refresh)
 	v1.GET("/user/current", auth.Auth(deps.AccessHandler), h.GetCurrentUser)
 
+	// Обработчик OPTIONS-запросов (не обязательно, но помогает)
+	v1.OPTIONS("/*path", func(c *gin.Context) {
+		c.Status(204) // Успешный preflight-запрос
+	})
+
 	router.GET("/healthz", func(c *gin.Context) {
 		c.Status(http.StatusOK)
 	})

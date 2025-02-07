@@ -3,6 +3,7 @@ package middleware
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"time"
 )
 
 func CORSMiddleware() gin.HandlerFunc {
@@ -21,13 +22,13 @@ func CORSMiddleware() gin.HandlerFunc {
 	//}
 	return cors.New(cors.Config{
 		AllowOrigins:     []string{"http://service.xamust.tech", "http://special.xamust.tech"},
-		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Content-Type, Authorization"},
 		AllowCredentials: true,
 		//AllowOriginFunc: func(origin string) bool {
 		//	return origin == "https://github.com"
 		//},
-		//MaxAge: 12 * time.Hour,
+		MaxAge: 12 * time.Hour,
 	})
 }
 
