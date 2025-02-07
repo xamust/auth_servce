@@ -21,7 +21,7 @@ func CORSMiddleware() gin.HandlerFunc {
 	//}
 	return cors.New(cors.Config{
 		AllowOrigins:     []string{"http://service.xamust.tech", "http://special.xamust.tech"},
-		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
 		AllowHeaders:     []string{"Content-Type, Authorization"},
 		AllowCredentials: true,
 		//AllowOriginFunc: func(origin string) bool {
