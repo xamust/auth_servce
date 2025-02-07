@@ -6,15 +6,14 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"gitlab.com/xamops/auth/docs"
 	"gitlab.com/xamops/auth/internal/controller/http/v1/handlers"
-	"gitlab.com/xamops/auth/pkg/middleware"
 	"gitlab.com/xamops/auth/pkg/middleware/auth"
 	"net/http"
 )
 
 func NewRouter(deps handlers.Dependencies) *gin.Engine {
 	router := gin.New()
-	router.Use(gin.Recovery(), gin.Logger(), middleware.CORSMiddleware())
-	//
+	router.Use(gin.Recovery(), gin.Logger())
+	//, middleware.CORSMiddleware()
 
 	//router.Group("/api/v1/*", handlers.NewRoutes(deps)...)
 	//router.Any("/api/v1/*w", gin.WrapH(http.StripPrefix("/api/v1", srv)))
